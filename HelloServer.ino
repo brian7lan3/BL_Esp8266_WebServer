@@ -27,6 +27,10 @@ void handleBlink(){
     }
 }
 
+void handleA0(){
+    server.send(200, "text/plain", String("A0:")+analogRead(A0));
+}
+
 void handleNotFound() {
   digitalWrite(led, 1);
   String message = "File Not Found\n\n";
@@ -70,6 +74,7 @@ void setup(void) {
   server.on("/", handleRoot);
 
   server.on("/blink", handleBlink);
+  server.on("/a0", handleA0);
 
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
