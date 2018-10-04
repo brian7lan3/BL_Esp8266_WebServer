@@ -12,8 +12,19 @@ const int led = 2;
 
 void handleRoot() {
   digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266!");
+  server.send(200, "text/plain", "hello from esp8266! BO LAN");
   digitalWrite(led, 0);
+}
+
+void handleBlink(){
+    server.send(200, "text/plain", "BLINKing~~~");
+
+    for(int i = 0; i<10; i++){
+        digitalWrite(led,1);
+        delay(500);
+        digitalWrite(led,0);
+        delay(500);
+    }
 }
 
 void handleNotFound() {
@@ -57,6 +68,8 @@ void setup(void) {
   }
 
   server.on("/", handleRoot);
+
+  server.on("/blink", handleBlink);
 
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
