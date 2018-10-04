@@ -3,8 +3,8 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "icheerus";
-const char* password = "a0963170671";
+const char* ssid = "Sapido_BRF71n_d0c01a";
+const char* password = "";
 
 ESP8266WebServer server(80);
 
@@ -12,23 +12,27 @@ const int led = 2;
 
 void handleRoot() {
   digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266! BO LAN");
+  server.send(200, "text/plain", "hello from esp8266! EXEXEXEXEX101010101");
+  delay(1000);
   digitalWrite(led, 0);
 }
 
-void handleBlink(){
-    server.send(200, "text/plain", "BLINKing~~~");
+void handleA0() {
 
-    for(int i = 0; i<10; i++){
-        digitalWrite(led,1);
-        delay(500);
-        digitalWrite(led,0);
-        delay(500);
-    }
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.send(200, "text/json" , String("{\"A0\":") + analogRead(A0) + "}");
 }
 
-void handleA0(){
-    server.send(200, "text/plain", String("A0:")+analogRead(A0));
+void handleBlink() {
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.send(200, "text/plain", "BLINK__BLINK_");
+
+  for (int i = 0; i < 10; i++ ) {
+    digitalWrite(led, 1);
+    delay(500);
+    digitalWrite(led, 0);
+    delay(500);
+  }
 }
 
 void handleNotFound() {
@@ -67,9 +71,9 @@ void setup(void) {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  if (MDNS.begin("esp8266")) {
-    Serial.println("MDNS responder started");
-  }
+  //  if (MDNS.begin("esp8266")) {
+  //    Serial.println("MDNS responder started");
+  //  }
 
   server.on("/", handleRoot);
 
