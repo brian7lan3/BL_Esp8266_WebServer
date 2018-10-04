@@ -3,12 +3,12 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "........";
-const char* password = "........";
+const char* ssid = "icheerus";
+const char* password = "a0963170671";
 
 ESP8266WebServer server(80);
 
-const int led = 13;
+const int led = 2;
 
 void handleRoot() {
   digitalWrite(led, 1);
